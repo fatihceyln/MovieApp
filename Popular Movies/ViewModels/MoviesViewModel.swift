@@ -33,14 +33,6 @@ class MoviesViewModel: ObservableObject {
         }
     }
     
-    func getMoviesByID(id: Int) {
-        guard let url = URL(string: "https://api.themoviedb.org/3/movie/\(id)?api_key=e112ed72df8da5c3b38e4e6579896bc6&language=en-US") else {return}
-        
-        DownloaderManager.shared.downloadData(fromURL: url) { data in
-            
-        }
-    }
-    
     func getMovieByMovieEntity(movieEntity: MovieEntity) -> Movie {
         guard let movie = movies.first(where: {$0.id == Int(movieEntity.id)}) else {
             return Movie(backdropPath: nil, genreIDS: nil, id: nil, originalTitle: nil, overview: nil, posterPath: nil, releaseDate: nil, voteAverage: nil)
