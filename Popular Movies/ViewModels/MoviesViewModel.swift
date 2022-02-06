@@ -25,6 +25,8 @@ class MoviesViewModel: ObservableObject {
             if let data = data {
                 guard let returnedMovie = try? JSONDecoder().decode(MovieModel.self, from: data) else {return}
                 guard let returnedResults = returnedMovie.results else {return}
+                
+                // Affecting UI. It has to be work on main thread.
                 DispatchQueue.main.async { [weak self] in
                     self?.movieModel = returnedMovie
                     self?.movies = returnedResults

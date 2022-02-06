@@ -7,9 +7,11 @@
 
 import SwiftUI
 
+// There is nothing to comment out.
+
 struct MainView: View {
     
-    @State var navText: String = ""
+    @State var navTitleText: String = ""
     
     var body: some View {
         TabView {
@@ -19,7 +21,7 @@ struct MainView: View {
                     Text("Home")
                 }
                 .onAppear {
-                    navText = "Popular 🎬"
+                    navTitleText = "Popular 🎬"
                 }
             
             
@@ -29,16 +31,9 @@ struct MainView: View {
                     Text("Favorite")
                 }
                 .onAppear {
-                    navText = "Favorite 🔥"
+                    navTitleText = "Favorite 🔥"
                 }
         }
-        .navigationTitle(navText)
-    }
-}
-
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
-            .environmentObject(MoviesViewModel())
+        .navigationTitle(navTitleText)
     }
 }

@@ -24,12 +24,9 @@ struct DetailView: View {
                 
                 HStack(spacing: 16) {
                     VStack(alignment: .leading) {
-                        
                         movieTitle
-                        
                         HStack {
                             movieRateView.overlay(overlayView.mask(movieRateView))
-                            
                             movieReleaseDate
                         }
                     }
@@ -37,7 +34,6 @@ struct DetailView: View {
                     Spacer()
                     
                     heartButton
-                    
                 }
                 .padding()
                 .background(.thickMaterial)
@@ -74,7 +70,7 @@ extension DetailView {
             ZStack(alignment: .leading) {
                 Rectangle()
                     .foregroundColor(.yellow)
-                    .frame(width: geometry.size.width / 10 * CGFloat(movie.voteAverage ?? 5.0))
+                    .frame(width: geometry.size.width / 10 * CGFloat(movie.voteAverage ?? 0.0))
             }
         }
     }
@@ -143,10 +139,14 @@ extension DetailView {
             isFavorite.toggle()
             
             if isFavorite {
-                coreDataVM.addMovie(idForMovie: Int64(movie.id ?? 0))
+                if let id = movie.id {
+                    coreDataVM.addMovie(idForMovie: Int64(id))
+                }
             }
             else {
-                coreDataVM.deleteMovie(idForMovie: Int64(movie.id ?? 0))
+                if let id = movie.id {
+                    coreDataVM.deleteMovie(idForMovie: Int64(id))
+                }
             }
             
         } label: {

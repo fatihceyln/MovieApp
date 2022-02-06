@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// There is nothing to comment out.
+
 struct ListView: View {
     
     @EnvironmentObject var vm: MoviesViewModel
