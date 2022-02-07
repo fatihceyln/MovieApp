@@ -11,15 +11,21 @@ import SwiftUI
 
 struct ListView: View {
     
-    @EnvironmentObject var vm: MoviesViewModel
-    
+    @EnvironmentObject var moviesVM: MoviesViewModel
     var body: some View {
         List {
-            ForEach(vm.movies) { movie in
+            ForEach(moviesVM.movies) { movie in
                 NavigationLink {
                     DetailView(movie: movie)
                 } label: {
                     ListRowView(movie: movie)
+                        .onAppear {
+                            if let id = movie.id {
+                                if moviesVM.shouldLoadMoreData(id: id) {
+                                    moviesVM.currentPage += 1
+                                }
+                            }
+                        }
                 }
             }
         }

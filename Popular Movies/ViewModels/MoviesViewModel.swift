@@ -11,14 +11,19 @@ class MoviesViewModel: ObservableObject {
     
     @Published var movieModel: MovieModel?
     @Published var movies: [Movie] = []
-    
-    init() {
-        getAllMovies()
+    @Published var currentPage: Int = 1 {
+        didSet {
+            getAllMovies(byPage: currentPage)
+        }
     }
     
-    func getAllMovies() {
+    init() {
+        getAllMovies(byPage: currentPage)
+    }
+    
+    func getAllMovies(byPage page: Int) {
         
-        guard let url = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=e112ed72df8da5c3b38e4e6579896bc6&language=en-US&page=1") else {return}
+        guard let url = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=e112ed72df8da5c3b38e4e6579896bc6&language=en-US&page=\(page)") else {return}
         
         DownloaderManager.shared.downloadData(fromURL: url) { data in
             
@@ -29,10 +34,14 @@ class MoviesViewModel: ObservableObject {
                 // Affecting UI. It has to be work on main thread.
                 DispatchQueue.main.async { [weak self] in
                     self?.movieModel = returnedMovie
-                    self?.movies = returnedResults
+                    self?.movies.append(contentsOf: returnedResults)
                 }
             }
         }
+    }
+    
+    func shouldLoadMoreData(id: Int) -> Bool {
+        return id == movies[movies.count - 3].id
     }
     
     func getMovieByMovieEntity(movieEntity: MovieEntity) -> Movie {
