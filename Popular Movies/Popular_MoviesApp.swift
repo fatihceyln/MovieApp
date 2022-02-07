@@ -15,11 +15,9 @@ struct Popular_MoviesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                MainView()
-            }
-            .environmentObject(moviesVM)
-            .environmentObject(coreDataVM)
+            MainView()
+                .environmentObject(moviesVM)
+                .environmentObject(coreDataVM)
         }
     }
 }

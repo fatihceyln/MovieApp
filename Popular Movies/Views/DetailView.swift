@@ -140,12 +140,19 @@ extension DetailView {
             
             if isFavorite {
                 if let id = movie.id {
-                    coreDataVM.addMovie(idForMovie: Int64(id))
+                    withAnimation(.default) {
+                        coreDataVM.addMovie(idForMovie: Int64(id))
+                        moviesVM.fromEntityToMovie(entities: coreDataVM.entities)
+                    }
                 }
             }
             else {
                 if let id = movie.id {
-                    coreDataVM.deleteMovie(idForMovie: Int64(id))
+                    withAnimation(.default) {
+                        coreDataVM.deleteMovie(idForMovie: Int64(id))
+                        moviesVM.fromEntityToMovie(entities: coreDataVM.entities)
+                    }
+                    
                 }
             }
             

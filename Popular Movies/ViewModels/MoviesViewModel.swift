@@ -17,8 +17,31 @@ class MoviesViewModel: ObservableObject {
         }
     }
     
+    @Published var favoriteMovies: [Movie] = []
+    
     init() {
         getAllMovies(byPage: currentPage)
+    }
+    
+    func fromEntityToMovie(entities: [MovieEntity]) {
+        favoriteMovies.removeAll()
+        for entity in entities {
+            getMovieUsingID(idForMovie: Int(entity.id))
+        }
+    }
+    
+    func getMovieUsingID(idForMovie id: Int) {
+        guard let url = URL(string: "https://api.themoviedb.org/3/movie/\(id)?api_key=e112ed72df8da5c3b38e4e6579896bc6&language=en-US") else {return}
+        
+        DownloaderManager.shared.downloadData(fromURL: url) { data in
+            if let data = data {
+                guard let returnedMovie = try? JSONDecoder().decode(Movie.self, from: data) else {return}
+                
+                DispatchQueue.main.async {
+                    self.favoriteMovies.append(returnedMovie)
+                }
+            }
+        }
     }
     
     func getAllMovies(byPage page: Int) {

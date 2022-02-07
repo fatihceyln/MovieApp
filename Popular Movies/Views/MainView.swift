@@ -12,28 +12,55 @@ import SwiftUI
 struct MainView: View {
     
     @State var navTitleText: String = ""
+    @EnvironmentObject var coreDataVM: CoreDataViewModel
+    @EnvironmentObject var moviesVM: MoviesViewModel
     
     var body: some View {
-        TabView {
-            ListView()
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Home")
+        NavigationView {
+            VStack(alignment:.leading ,spacing: 20) {
+                
+                Text(navTitleText)
+                    .font(.largeTitle)
+                    .fontWeight(.semibold)
+                    .padding()
+                    
+                
+                TabView {
+                    ListView()
+                        .tabItem {
+                            Image(systemName: "house.fill")
+                            Text("Home")
+                        }
+                        .onAppear {
+                            navTitleText = "Popular 🎬"
+                            if moviesVM.favoriteMovies.isEmpty {
+                                moviesVM.fromEntityToMovie(entities: coreDataVM.entities)
+                            }
+                        }
+                    
+                    
+                    FavoriteView()
+                        .tabItem {
+                            Image(systemName: "heart.fill")
+                            Text("Favorite")
+                        }
+                        .onAppear {
+                            navTitleText = "Favorite 🔥"
+                        }
                 }
-                .onAppear {
-                    navTitleText = "Popular 🎬"
-                }
-            
-            
-            FavoriteView()
-                .tabItem {
-                    Image(systemName: "heart.fill")
-                    Text("Favorite")
-                }
-                .onAppear {
-                    navTitleText = "Favorite 🔥"
-                }
+                .navigationTitle(navTitleText)
+                .navigationBarHidden(true)
+            }
+            .background(.thickMaterial)
         }
-        .navigationTitle(navTitleText)
     }
 }
+
+struct MainView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainView()
+            .environmentObject(CoreDataViewModel())
+            .environmentObject(MoviesViewModel())
+    }
+}
+

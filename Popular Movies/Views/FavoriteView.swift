@@ -16,17 +16,17 @@ struct FavoriteView: View {
         
         VStack {
             
-            if coreDataVM.movies.isEmpty {
+            if moviesVM.favoriteMovies.isEmpty {
                 EmptyFavoriteView()
             }
             else {
                 List {
                     // We're giving MovieEntity array 'cause favorited movies are saved into that array.
-                    ForEach(coreDataVM.movies) { movie in
+                    ForEach(moviesVM.favoriteMovies) { movie in
                         NavigationLink {
-                            DetailView(movie: moviesVM.getMovieByMovieEntity(movieEntity: movie))
+                            DetailView(movie: movie)
                         } label: {
-                            ListRowView(movie: moviesVM.getMovieByMovieEntity(movieEntity: movie))
+                            ListRowView(movie: movie)
                         }
                     }
                 }

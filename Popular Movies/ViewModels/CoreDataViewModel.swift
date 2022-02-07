@@ -10,7 +10,7 @@ import CoreData
 
 class CoreDataViewModel: ObservableObject {
     let manager = CoreDataManager.shared
-    @Published var movies: [MovieEntity] = []
+    @Published var entities: [MovieEntity] = []
     
     init() {
         getMovies()
@@ -20,7 +20,7 @@ class CoreDataViewModel: ObservableObject {
         let request = NSFetchRequest<MovieEntity>(entityName: "MovieEntity")
         
         do {
-            movies = try manager.context.fetch(request)
+            entities = try manager.context.fetch(request)
         } catch let error {
             print(String(describing: error))
         }
@@ -34,7 +34,7 @@ class CoreDataViewModel: ObservableObject {
     }
     
     func deleteMovie(idForMovie id: Int64) {
-        guard let movie = movies.first(where: {$0.id == id}) else {return}
+        guard let movie = entities.first(where: {$0.id == id}) else {return}
         manager.context.delete(movie)
         save()
         getMovies()
@@ -43,7 +43,7 @@ class CoreDataViewModel: ObservableObject {
     func isFavorite(movie: Movie) -> Bool {
         
         if let id = movie.id {
-            guard movies.first(where: {$0.id == id}) != nil else {
+            guard entities.first(where: {$0.id == id}) != nil else {
                 return false
             }
         }
