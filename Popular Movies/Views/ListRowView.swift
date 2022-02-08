@@ -98,9 +98,11 @@ extension ListRowView {
     
 }
 
+/*
 struct ListRowView_Previews: PreviewProvider {
     static var previews: some View {
         ListRowView(movie: Result(backdropPath: nil, genreIDS: nil, id: nil, originalTitle: nil, overview: nil, posterPath: nil, releaseDate: nil, voteAverage: nil))
             .environmentObject(MoviesViewModel())
     }
 }
+*/

@@ -18,9 +18,11 @@ class MoviesViewModel: ObservableObject {
     }
     
     @Published var favoriteMovies: [Movie] = []
+    @Published var genres: [Genre] = []
     
     init() {
         getAllMovies(byPage: currentPage)
+        getGenres()
     }
     
     func fromEntityToMovie(entities: [MovieEntity]) {
@@ -35,10 +37,11 @@ class MoviesViewModel: ObservableObject {
         
         DownloaderManager.shared.downloadData(fromURL: url) { data in
             if let data = data {
-                guard let returnedMovie = try? JSONDecoder().decode(Movie.self, from: data) else {return}
-                
-                DispatchQueue.main.async {
-                    self.favoriteMovies.append(returnedMovie)
+                guard let returnedMovie = try? JSONDecoder().decode(Movie.self, from: data) else {
+                    return}
+                print(returnedMovie)
+                DispatchQueue.main.async { [weak self] in
+                    self?.favoriteMovies.append(returnedMovie)
                 }
             }
         }
@@ -79,6 +82,26 @@ class MoviesViewModel: ObservableObject {
         else {
             return baseURLLarge + endpoint
         }
+    }
+    
+    func getGenres() {
+        guard let genreURL = URL(string: "https://api.themoviedb.org/3/genre/movie/list?api_key=e112ed72df8da5c3b38e4e6579896bc6&language=en-US") else {return}
+        
+        DownloaderManager.shared.downloadData(fromURL: genreURL) { data in
+            
+            if let data = data {
+                guard let returnedGenreModel = try? JSONDecoder().decode(GenreModel.self, from: data) else {
+                    print("error")
+                    return}
+                DispatchQueue.main.async { [weak self] in
+                    self?.genres = returnedGenreModel.genres
+                }
+            }
+        }
+    }
+    
+    func returnGenreString(id: Int) -> String {
+        return genres.first(where: {$0.id == id})?.name ?? ""
     }
 }
 

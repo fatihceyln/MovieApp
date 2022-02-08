@@ -13,6 +13,7 @@ struct MovieModel: Codable {
 struct Result: Identifiable, Codable {
     let backdropPath: String?
     let genreIDS: [Int]?
+    let genres: [Genre]?
     var id: Int?
     let originalTitle: String?
     let overview: String?
@@ -23,6 +24,7 @@ struct Result: Identifiable, Codable {
     enum CodingKeys: String, CodingKey {
         case backdropPath = "backdrop_path"
         case genreIDS = "genre_ids"
+        case genres
         case id
         case originalTitle = "original_title"
         case overview

@@ -21,10 +21,10 @@ struct FavoriteView: View {
             }
             else {
                 List {
-                    // We're giving MovieEntity array 'cause favorited movies are saved into that array.
                     ForEach(moviesVM.favoriteMovies) { movie in
                         NavigationLink {
                             DetailView(movie: movie)
+                                
                         } label: {
                             ListRowView(movie: movie)
                         }

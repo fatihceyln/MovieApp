@@ -19,7 +19,7 @@ struct DetailView: View {
         ScrollView {
             VStack(alignment: .center, spacing: 16) {
                 
-                movieImage(fromUrl: URL(string: moviesVM.getImageURLString(movie: movie, imageSize: .small)))
+                movieImage(fromUrl: URL(string: moviesVM.getImageURLString(movie: movie, imageSize: .large)))
                 
                 
                 HStack(spacing: 16) {
@@ -42,6 +42,10 @@ struct DetailView: View {
                 
                 Divider()
                 
+                genreView
+                
+                Divider()
+                
                 overview
             }
             .padding()
@@ -56,6 +60,7 @@ struct DetailView: View {
 }
 
 extension DetailView {
+    
     var movieRateView: some View {
         HStack(spacing: 0) {
             ForEach(1..<6, id: \.self) { _ in
@@ -74,7 +79,6 @@ extension DetailView {
             }
         }
     }
-    
     
     func movieImage(fromUrl url: URL?) -> some View {
         
@@ -111,7 +115,6 @@ extension DetailView {
         )
         .zIndex(1.0)
     }
-    
     
     var movieTitle: some View {
         Text(movie.originalTitle ?? "")
@@ -171,10 +174,34 @@ extension DetailView {
             }
         }
     }
+    
+    var genreView: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("Genres: ")
+            if let genreIDS = movie.genreIDS {
+                ForEach(genreIDS, id: \.self) { genreID in
+                    Text(moviesVM.returnGenreString(id: genreID))
+                }
+            }
+            
+            if let genres = movie.genres {
+                ForEach(genres, id: \.self) { genre in
+                    if let genreID = genre.id {
+                        Text(moviesVM.returnGenreString(id: genreID))
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .background(.thickMaterial)
+        .cornerRadius(10)
+        .shadow(radius: 10)
+    }
 }
 
 
-
+/*
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(movie: Result(backdropPath: nil, genreIDS: nil, id: nil, originalTitle: nil, overview: nil, posterPath: nil, releaseDate: nil, voteAverage: nil))
@@ -182,3 +209,4 @@ struct DetailView_Previews: PreviewProvider {
             .environmentObject(CoreDataViewModel())
     }
 }
+*/

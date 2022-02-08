@@ -22,6 +22,7 @@
 		3D95D29227B0033F00429DEA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D95D29127B0033F00429DEA /* MainView.swift */; };
 		3D95D29427B003CD00429DEA /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D95D29327B003CD00429DEA /* FavoriteView.swift */; };
 		3D95D29627B01C5400429DEA /* EmptyFavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D95D29527B01C5400429DEA /* EmptyFavoriteView.swift */; };
+		3DC73C3C27B274E400C7DF3C /* GenreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC73C3B27B274E400C7DF3C /* GenreModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		3D95D29127B0033F00429DEA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3D95D29327B003CD00429DEA /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		3D95D29527B01C5400429DEA /* EmptyFavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyFavoriteView.swift; sourceTree = "<group>"; };
+		3DC73C3B27B274E400C7DF3C /* GenreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				3D95D27A27AFA0F800429DEA /* MovieModel.swift */,
+				3DC73C3B27B274E400C7DF3C /* GenreModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D95D27B27AFA0F800429DEA /* MovieModel.swift in Sources */,
+				3DC73C3C27B274E400C7DF3C /* GenreModel.swift in Sources */,
 				3D95D28A27AFFABD00429DEA /* Container.xcdatamodeld in Sources */,
 				3D95D27D27AFA5E500429DEA /* ListView.swift in Sources */,
 				3D95D27927AF9FC100429DEA /* DownloaderManager.swift in Sources */,
