@@ -67,14 +67,6 @@ class MoviesViewModel: ObservableObject {
         return id == movies[movies.count - 3].id
     }
     
-    func getMovieByMovieEntity(movieEntity: MovieEntity) -> Movie {
-        guard let movie = movies.first(where: {$0.id == Int(movieEntity.id)}) else {
-            return Movie(backdropPath: nil, genreIDS: nil, id: nil, originalTitle: nil, overview: nil, posterPath: nil, releaseDate: nil, voteAverage: nil)
-            }
-        
-        return movie
-    }
-    
     func getImageURLString(movie: Movie, imageSize: ImageSize) -> String {
         let baseURLSmall = "https://image.tmdb.org/t/p/w500"
         let baseURLLarge = "https://image.tmdb.org/t/p/original"

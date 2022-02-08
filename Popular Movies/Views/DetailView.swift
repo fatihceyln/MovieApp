@@ -126,6 +126,7 @@ extension DetailView {
     
     var overview: some View {
         Text(movie.overview ?? "")
+            .frame(maxWidth: .infinity)
             .font(.body)
             .multilineTextAlignment(.leading)
             .padding()

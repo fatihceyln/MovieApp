@@ -19,11 +19,7 @@ struct MainView: View {
         NavigationView {
             VStack(alignment:.leading ,spacing: 20) {
                 
-                Text(navTitleText)
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
-                    .padding()
-                    
+                navigationTitle
                 
                 TabView {
                     ListView()
@@ -53,6 +49,15 @@ struct MainView: View {
             }
             .background(.thickMaterial)
         }
+    }
+}
+
+extension MainView {
+    var navigationTitle: some View {
+        Text(navTitleText)
+            .font(.largeTitle)
+            .fontWeight(.semibold)
+            .padding()
     }
 }
 
